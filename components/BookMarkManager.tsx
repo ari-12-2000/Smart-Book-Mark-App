@@ -41,13 +41,21 @@ export default function BookmarkManager({ session }: { session: Session }) {
     // REALTIME
     useEffect(() => {
         const channel = supabase
-            .channel("bookmarks")
+            .channel("bookmarks-changes")
             .on(
                 "postgres_changes",
-                { event: "*", schema: "public", table: "bookmarks" },
-                fetchBookmarks
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "bookmarks",
+                    filter: `user_id=eq.${session.user.id}`,
+                },
+                () => {
+                    fetchBookmarks();
+                }
             )
             .subscribe();
+
 
         return () => {
             channel.unsubscribe();
@@ -188,12 +196,12 @@ export default function BookmarkManager({ session }: { session: Session }) {
                                                 <input
                                                     value={editTitle}
                                                     onChange={(e) => setEditTitle(e.target.value)}
-                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                                 />
                                                 <input
                                                     value={editUrl}
                                                     onChange={(e) => setEditUrl(e.target.value)}
-                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                                 />
                                             </div>
                                         ) : (

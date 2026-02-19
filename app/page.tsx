@@ -38,7 +38,7 @@ export default function Home() {
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-slate-200 backdrop-blur-sm">
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-2xl mb-4">
-                <Bookmark />
+                <Bookmark className="w-8 h-8 text-indigo-600" />
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-2">SaveSpot</h1>
               <p className="text-lg text-slate-600">Your personal bookmark manager</p>
