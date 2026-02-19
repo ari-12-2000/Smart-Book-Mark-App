@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { Pencil, Trash2, Copy, Check, Search, Plus, Link2, ArrowUpRight } from "lucide-react";
+import { Pencil, Trash2, Copy, Check, Search, Plus, Link2, ArrowUpRight, X } from "lucide-react";
 import { Session } from "@supabase/supabase-js";
 import { Bookmark } from "@/types/bookmark";
 
@@ -196,12 +196,12 @@ export default function BookmarkManager({ session }: { session: Session }) {
                                                 <input
                                                     value={editTitle}
                                                     onChange={(e) => setEditTitle(e.target.value)}
-                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                                 />
                                                 <input
                                                     value={editUrl}
                                                     onChange={(e) => setEditUrl(e.target.value)}
-                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                                    className="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                                 />
                                             </div>
                                         ) : (
@@ -261,6 +261,14 @@ export default function BookmarkManager({ session }: { session: Session }) {
                                         >
                                             <Trash2 size={18} />
                                         </button>
+
+                                        {editingId === bm.id && <button
+                                            onClick={() => setEditingId(null)}
+                                            className="p-2 text-slate-600 hover:bg-slate-200 rounded-lg transition-colors"
+                                            title="Cancel"
+                                        >
+                                            <X size={18} />
+                                        </button>}
                                     </div>
                                 </div>
                             </div>
